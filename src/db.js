@@ -10,7 +10,10 @@ const pool = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  connectTimeout: 5000,
+  // Phải ngắn hơn timeout 5s của Target Group health check: nếu DB không
+  // reach được, "/" vẫn kịp trả 200 (badge Disconnected) thay vì bị đánh
+  // unhealthy và ASG thay instance liên tục.
+  connectTimeout: 2000,
 });
 
 // Dùng cho badge trạng thái ✅/❌ trên trang chủ. Trang chủ vẫn phải trả

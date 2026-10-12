@@ -22,5 +22,5 @@ module.exports = {
     bucket: process.env.S3_BUCKET || '',
   },
 
-  awsRegion: process.env.AWS_REGION || 'ap-southeast-1',
+  awsRegion: process.env.AWS_REGION || 'us-east-1',
 };

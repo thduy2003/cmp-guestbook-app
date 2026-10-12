@@ -41,10 +41,17 @@ async function createPresignedUploadUrl(originalFilename, contentType) {
 // hoàn toàn (Block Public Access mặc định, không cần Bucket Policy
 // public-read) — nhất quán với nguyên tắc "S3 chỉ truy cập qua presigned
 // URL" của lab, áp dụng cho cả chiều upload lẫn chiều xem ảnh.
+// Trang chủ phải luôn trả 200 (health check dùng "/"), nên lỗi ký URL
+// (vd không resolve được credentials) chỉ làm ẩn ảnh, KHÔNG throw ra ngoài.
 async function getPresignedViewUrl(key) {
   if (!key || !config.s3.bucket) return null;
-  const command = new GetObjectCommand({ Bucket: config.s3.bucket, Key: key });
-  return getSignedUrl(s3, command, { expiresIn: PRESIGN_VIEW_EXPIRES_SECONDS });
+  try {
+    const command = new GetObjectCommand({ Bucket: config.s3.bucket, Key: key });
+    return await getSignedUrl(s3, command, { expiresIn: PRESIGN_VIEW_EXPIRES_SECONDS });
+  } catch (err) {
+    console.error('Presign GET lỗi:', err.message);
+    return null;
+  }
 }
 
 module.exports = { createPresignedUploadUrl, getPresignedViewUrl };

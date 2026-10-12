@@ -34,7 +34,7 @@ src/
 - 2 chiến lược deploy demo trong lab: đổi code (push lên repo này +
   Instance Refresh) và đổi AMI (rebuild Golden AMI + Launch Template
   version mới + Instance Refresh) — xem chi tiết trong repo lab
-  `cmp-guestbook-doc`, thư mục `docs/08` và `docs/09`.
+  `cmp-guestbook-doc`, thư mục `docs/09` và `docs/10`.
 
 ## API endpoints
 

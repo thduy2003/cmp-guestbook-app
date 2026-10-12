@@ -5,7 +5,7 @@
   "description": "Cloud Mentor Pro Guestbook - demo app (Node.js + Express) cho bài lab AWS SAA (ALB + Auto Scaling Group)",
   "main": "src/server.js",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
     "start": "node src/server.js",
